@@ -1,6 +1,6 @@
 <template>
   <div class="cardContainer">
-    <div v-for="movie in movies.results" :key="movie.id" class="movieCard">
+    <div v-for="(movie, index) in movies" :key="index" class="movieCard">
       <div class="movieBox">
         <h3 class="movieName">{{ movie.title }}</h3>
 
@@ -15,19 +15,38 @@
         <p class="description">{{ movie.overview }}</p>
       </div>
     </div>
+    <div v-if="movies.length" v-observe-visibility="handleScroll"></div>
   </div>
 </template>
 <script>
 import axios from "axios";
 export default {
   data() {
-    return { movies: [] };
+    return { movies: [], page: 1, total_pages: 1 };
   },
-  async created() {
-    const response = await axios.get(
-      "https://api.themoviedb.org/3/movie/top_rated?api_key=1f0795097b3d4f1ad22864d8d633e221&language=en-US&page=1"
-    );
-    this.movies = response.data;
+
+  methods: {
+    async getMovies() {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=1f0795097b3d4f1ad22864d8d633e221&language=en-US&page=${this.page}`
+      );
+
+      this.movies.push(...response.data.results);
+      this.total_pages = response.data.total_pages;
+    },
+    handleScroll(isVisible) {
+      if (!isVisible) {
+        return;
+      }
+      if (this.page == this.total_pages) {
+        return;
+      }
+      this.page++;
+      this.getMovies();
+    },
+  },
+  mounted() {
+    this.getMovies();
   },
 };
 </script>
