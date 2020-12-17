@@ -1,5 +1,7 @@
 <template>
-  <movie-list />
+  <div>
+    <movie-list />
+  </div>
 </template>
 
 <script>
