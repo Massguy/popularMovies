@@ -60,7 +60,6 @@ export default {
       const response = await axios.get(
         `https://api.themoviedb.org/3/movie/top_rated?api_key=1f0795097b3d4f1ad22864d8d633e221&language=en-US&page=${this.page}`
       );
-
       this.movies.push(...response.data.results);
       this.total_pages = response.data.total_pages;
     },
