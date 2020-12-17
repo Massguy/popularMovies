@@ -54,3 +54,11 @@ describe('Mounted App', () => {
      
     });
   });
+
+  describe('input form check',()=>{
+    test('sets the value', async () => {
+        const wrapper = mount(MovieList)
+        const input = wrapper.find('input')
+        expect(input.element.placeholder).toBe('please enter movie name')
+      })
+  })
