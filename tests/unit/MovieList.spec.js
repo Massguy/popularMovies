@@ -59,6 +59,6 @@ describe('Mounted App', () => {
     test('sets the value', async () => {
         const wrapper = mount(MovieList)
         const input = wrapper.find('input')
-        expect(input.element.placeholder).toBe('please enter movie name')
+        expect(input.element.placeholder).toBe('please enter movie name then press Enter')
       })
   })

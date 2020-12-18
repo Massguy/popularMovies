@@ -6,8 +6,8 @@
         <input
           type="text"
           v-model="query"
-          @keyup="getResult(query)"
-          placeholder="please enter movie name"
+          @keyup.enter="getResult(query)"
+          placeholder="please enter movie name then press Enter"
           required
         />
       </div>
@@ -52,16 +52,26 @@ import axios from "axios";
 export default {
   name: "movielist",
   data() {
-    return { movies: [], page: 1, total_pages: 1, query: "", results: "" };
+    return {
+      movies: [],
+      page: 1,
+      total_pages: 1,
+      query: "",
+      results: "",
+    };
   },
 
   methods: {
     async getMovies() {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/top_rated?api_key=1f0795097b3d4f1ad22864d8d633e221&language=en-US&page=${this.page}`
-      );
-      this.movies.push(...response.data.results);
-      this.total_pages = response.data.total_pages;
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/top_rated?api_key=1f0795097b3d4f1ad22864d8d633e221&language=en-US&page=${this.page}`
+        );
+        this.movies.push(...response.data.results);
+        this.total_pages = response.data.total_pages;
+      } catch (error) {
+        console.log(error.response.data);
+      }
     },
     getResult(query) {
       axios
