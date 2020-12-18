@@ -5,13 +5,13 @@ if the user wants to search for a specific movie user is able to use the search 
 Infinite Scroll is implemented so at the bottom of scrolling another set of data is added.
 ## Project setup
 
-##Clone this repo
+## Clone this repo
 
 ```
 git@github.com:Massguy/popularMovies.git
 ```
 
-##install dependencies
+## install dependencies
 ```
 npm install
 ```
